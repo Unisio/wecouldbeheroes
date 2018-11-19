@@ -1,0 +1,89 @@
+
+import java.util.ArrayList;
+
+public class Superhjalte
+{
+    private ArrayList<SuperVapen> vapenlista;
+    private String namn;
+    private String stad;
+    public Superhjalte(String namn, String stad)
+  {
+        vapenlista = new ArrayList<SuperVapen>();
+        this.namn = namn;
+        this.stad = stad;
+    }
+    
+    public void laggTillVapen(SuperVapen nyttVapen)
+  {
+        boolean searching = true;
+        int index = 0;
+        
+        while(searching && index < vapenlista.size()){
+            
+            String nyttVapenNamn = nyttVapen.getNamn();
+            String befintligtVapen = vapenlista.get(index).getNamn();
+            
+            if(nyttVapenNamn.equals(befintligtVapen)) {
+                searching = false;
+                System.out.println("Superhjälten har redan ett supervapen med namnet " + nyttVapen.getNamn());
+                
+            } 
+            index++;
+        }
+        if(searching == true) {
+        vapenlista.add(nyttVapen);
+        System.out.println("Du har lagt till ett nytt Supervapen som heter " + nyttVapen.getNamn());
+        }
+
+    }
+    
+    public void printInfo() {
+        System.out.println("Superhjälten " + namn + " vakar över " + stad);
+        for (SuperVapen vapen: vapenlista)
+        System.out.println("Vapnet " + vapen.getNamn() + " har " + vapen.getAntalLaddningar() + " laddningar.");
+        
+  }
+    
+    public void anvandaVapen(String superVapenNamn, int laddningar) // använder vapnet
+    {
+        boolean searching = true;
+        int index = 0;            
+        while(searching && index < vapenlista.size()) { 
+           if(superVapenNamn.equals(vapenlista.get(index).getNamn())){ 
+            searching = false;             // avbryter searchen
+            if(laddningar <= vapenlista.get(index).getAntalLaddningar()) { 
+              for(int n = 0; n < laddningar; n++) {  
+              vapenlista.get(index).anvandSuperVapen();
+              }
+              System.out.println(vapenlista.get(index).getNamn() + " har använt " + laddningar + " laddningar. Antal laddningar kvar " + vapenlista.get(index).getAntalLaddningar());
+              }
+              else 
+              {
+                System.out.println(vapenlista.get(index).getNamn() + " har inte tillräckligt med laddningar. Antal laddningar " +  vapenlista.get(index).getAntalLaddningar());
+              }
+    }
+    index++;
+    }
+    if(searching == true) {
+        System.out.println("Det här vapnet existerar inte");
+    }
+  }
+    public int antalLaddningarKvar() {
+    int antalKvar = 0;
+    for(SuperVapen vapen : vapenlista) {
+        vapen.getAntalLaddningar();
+        antalKvar += vapen.getAntalLaddningar();
+        
+    }
+    return antalKvar;
+  }
+
+   public void printLaddningar() 
+  {
+      System.out.println("Hjälten " + namn + " har " + antalLaddningarKvar() + " laddningar kvar.");
+  }
+}
+
+
+        
+    
